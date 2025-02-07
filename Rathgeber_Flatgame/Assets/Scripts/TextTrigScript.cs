@@ -1,11 +1,17 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.Audio;
 
 public class TextTrigScript : MonoBehaviour
 {
     public TextMeshProUGUI text_to_trigger;
-    public float type_rate = 5f;
+    public AudioMixer mixer;
+    public Player player;
 
+    public float type_rate = 5f;
+    
+    private float pitch_min = 10f;
+    private float pitch_max = 12f;
     private float type_count = 0f;
     private bool is_active = false;
     private string full_string;
@@ -29,7 +35,9 @@ public class TextTrigScript : MonoBehaviour
             {
                 letters += 1;
                 type_count = 0;
-                Debug.Log("Letter added!");
+                mixer.SetFloat("type_pitch", Random.Range(pitch_min, pitch_max));
+                GetComponent<AudioSource>().Play();
+                //Debug.Log("Letter added!");
             }
 
             text_to_trigger.GetComponent<TMPro.TextMeshProUGUI>().text = full_string.Substring(0,letters);
@@ -41,7 +49,12 @@ public class TextTrigScript : MonoBehaviour
         if (is_active == false)
         {
             is_active = true;
-            Debug.Log("Activated!");
+            bool player_can_move = player.GetComponent<Player>().is_active;
+            if (!player_can_move)
+            {
+                player.GetComponent<Player>().is_active = true;
+            }
+            //Debug.Log("Activated!");
         }
     }
 }
