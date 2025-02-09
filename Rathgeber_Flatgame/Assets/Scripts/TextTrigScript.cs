@@ -53,6 +53,7 @@ public class TextTrigScript : MonoBehaviour
             if (!player_can_move)
             {
                 player.GetComponent<Player>().is_active = true;
+
             }
             //Debug.Log("Activated!");
         }
