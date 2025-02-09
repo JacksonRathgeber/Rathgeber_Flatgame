@@ -5,6 +5,7 @@ using UnityEngine.Audio;
 public class TextTrigScript : MonoBehaviour
 {
     public TextMeshProUGUI text_to_trigger;
+    public GameObject trigger_to_deactivate;
     public AudioMixer mixer;
     public Player player;
 
@@ -48,6 +49,13 @@ public class TextTrigScript : MonoBehaviour
     {
         if (is_active == false)
         {
+            if(trigger_to_deactivate != null)
+            {
+                trigger_to_deactivate.GetComponent<TextTrigScript>().is_active = false;
+                trigger_to_deactivate.GetComponent<TextTrigScript>().
+                    text_to_trigger.GetComponent<TMPro.TextMeshProUGUI>().text = "";
+            }
+
             is_active = true;
             bool player_can_move = player.GetComponent<Player>().is_active;
             if (!player_can_move)
@@ -55,7 +63,6 @@ public class TextTrigScript : MonoBehaviour
                 player.GetComponent<Player>().is_active = true;
 
             }
-            //Debug.Log("Activated!");
         }
     }
 }
