@@ -23,15 +23,17 @@ public class Player : MonoBehaviour
     {
         if (is_active)
         {
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.D) && this.transform.position.x > -20)
             {
                 this.transform.position += new Vector3(moveSpeed, 0, 0) * Time.deltaTime;
                 is_moving = true;
+                this.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
             }
-            else if (Input.GetKey(KeyCode.A))
+            else if (Input.GetKey(KeyCode.A) && this.transform.position.x < 250)
             {
                 this.transform.position += new Vector3(-moveSpeed, 0, 0) * Time.deltaTime;
                 is_moving = true;
+                this.transform.localScale = new Vector3(-0.5f, 0.5f, 1f);
             }
             else
             {
